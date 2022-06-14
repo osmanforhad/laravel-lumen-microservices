@@ -24,7 +24,7 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix' => 'api/v1'], function ($router) {
 
     //__Posts API Route__//
-    $router->group(['prefix' => 'posts'], function ($router) {
+    $router->group(['prefix' => 'posts', 'middleware' => 'auth'], function ($router) {
         $router->post('add', 'PostsController@createPost');
         $router->put('update/{id}', 'PostsController@updatePost');
         $router->get('view/{id}', 'PostsController@viewPost');
