@@ -20,10 +20,24 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+//Setup Routes inside Groups
 $router->group(['prefix' => 'api/v1'], function ($router) {
-    $router->post('posts/add', 'PostsController@createPost');
-    $router->put('posts/update/{id}', 'PostsController@updatePost');
-    $router->get('posts/view/{id}', 'PostsController@viewPost');
-    $router->delete('posts/delete/{id}', 'PostsController@deletePost');
-    $router->get('posts/show', 'PostsController@index');
+
+    //__Posts API Route__//
+    $router->group(['prefix' => 'posts'], function ($router) {
+        $router->post('add', 'PostsController@createPost');
+        $router->put('update/{id}', 'PostsController@updatePost');
+        $router->get('view/{id}', 'PostsController@viewPost');
+        $router->delete('delete/{id}', 'PostsController@deletePost');
+        $router->get('show', 'PostsController@index');
+    });
+
+    //__Users API Route__//
+    $router->group(['prefix' => 'users'], function ($router) {
+        $router->post('add', 'UsersController@add');
+        $router->put('update/{id}', 'UsersController@update');
+        $router->get('view/{id}', 'UsersController@view');
+        $router->delete('delete/{id}', 'UsersController@delete');
+        $router->get('show', 'UsersController@index');
+    });
 });
